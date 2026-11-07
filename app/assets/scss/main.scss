@@ -1,0 +1,429 @@
+/*
+* This file was created with significant AI assistance (e.g., Claude)
+* to handle global styles: reset, scaling unit, typography scale, shared helpers and animation start states.
+*
+* It has been reviewed, tested, and approved by a human developer
+* to ensure quality and correctness.
+*/
+
+// ---------------------------------------------------------------------------
+// Reset / base
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --u: calc(min(100vw, 1920px) / 1920);
+}
+
+@supports (width: 1cqw) {
+  :root {
+    --u: calc(min(100cqw, 1920px) / 1920);
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: $font;
+  font-weight: 400;
+  color: $ink;
+  background: $white;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+.page {
+  overflow-x: clip;
+  container-type: inline-size;
+}
+
+section[id],
+article[id] {
+  scroll-margin-top: 64px;
+
+  @include lg {
+    scroll-margin-top: u(94);
+  }
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.wrap {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @include md {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @include lg {
+    padding-left: u(140);
+    padding-right: u(140);
+  }
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 200;
+  padding: 12px 20px;
+  font-weight: 700;
+  color: $white;
+  background: $brick;
+
+  &:focus {
+    top: 16px;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid $sea;
+  outline-offset: 3px;
+}
+
+.red {
+  color: $brick;
+}
+
+// Images that are not there yet (before `npm run bilder`) keep a calm sand surface instead of a broken icon
+.img-ph {
+  background: $sand;
+}
+
+// ---------------------------------------------------------------------------
+// Typography
+// ---------------------------------------------------------------------------
+.t-h1 {
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 42px;
+  letter-spacing: -0.01em;
+
+  @include md {
+    font-size: 56px;
+    line-height: 68px;
+  }
+
+  @include lg {
+    font-size: u(78);
+    line-height: u(96);
+  }
+}
+
+.t-h2 {
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 42px;
+  letter-spacing: -0.02em;
+
+  @include md {
+    font-size: 54px;
+    line-height: 58px;
+  }
+
+  @include lg {
+    font-size: u(84);
+    line-height: u(90);
+  }
+}
+
+.t-h2-m {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 35px;
+  letter-spacing: -0.015em;
+
+  @include md {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  @include lg {
+    font-size: u(60);
+    line-height: u(68);
+  }
+}
+
+.t-lead {
+  font-size: 21px;
+  line-height: 29px;
+
+  @include md {
+    font-size: 26px;
+    line-height: 35px;
+  }
+
+  @include lg {
+    font-size: u(36);
+    line-height: u(50);
+  }
+}
+
+.t-body {
+  font-size: 17px;
+  line-height: 26px;
+
+  @include md {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @include lg {
+    font-size: u(22);
+    line-height: u(34);
+  }
+}
+
+.t-h3 {
+  font-weight: 750;
+  font-size: 22px;
+  line-height: 28px;
+
+  @include md {
+    font-size: 25px;
+    line-height: 31px;
+  }
+
+  @include lg {
+    font-size: u(30);
+    line-height: u(38);
+  }
+}
+
+.t-label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  @include lg {
+    font-size: u(17);
+    line-height: u(24);
+  }
+}
+
+.t-small {
+  font-size: 14px;
+  line-height: 20px;
+
+  @include lg {
+    font-size: u(17);
+    line-height: u(24);
+  }
+}
+
+// Section label (sea-coloured line + spaced label) – as in the KK layout
+.eyebrow {
+  display: block;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin-bottom: 12px;
+    background: $sea;
+
+    @include lg {
+      width: u(36);
+      height: u(4);
+      margin-bottom: u(14);
+    }
+  }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  white-space: nowrap;
+  color: $white;
+  background: $ink;
+
+  @include lg {
+    height: u(36);
+    padding: 0 u(16);
+    border-radius: u(4);
+    font-size: u(18);
+    line-height: u(24);
+  }
+}
+
+.round-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: $white;
+  background: $brick;
+  transition: background-color 0.3s ease, transform 0.4s ease;
+
+  @include lg {
+    width: u(47);
+    height: u(47);
+  }
+
+  svg {
+    width: 38%;
+    height: auto;
+  }
+}
+
+// Parallax images: the wrapper clips, the image inside moves (plugins/gsap.client.ts)
+.parallax {
+  overflow: hidden;
+
+  > img {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Animation start states (GSAP animates to visible; see plugins/gsap.client.ts)
+// ---------------------------------------------------------------------------
+.js [data-reveal] {
+  opacity: 0;
+}
+
+.js [data-hero-bar] {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.js [data-hero-text],
+.js [data-hero-sub],
+.js [data-scroll-arrow] {
+  opacity: 0;
+}
+
+// Safety net: if the GSAP bundle never runs, show everything after 3 s anyway
+.js:not(.gsap-ready) [data-hero-bar] {
+  animation: hero-bar-fallback 0.6s ease 3s forwards;
+}
+
+.js:not(.gsap-ready) :is([data-reveal], [data-hero-text], [data-hero-sub], [data-scroll-arrow]) {
+  animation: reveal-fallback 0.6s ease 3s forwards;
+}
+
+@keyframes hero-bar-fallback {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+@include reduced-motion {
+  .js [data-hero-bar] {
+    transform: none;
+  }
+
+  .js :is([data-reveal], [data-hero-text], [data-hero-sub], [data-scroll-arrow]) {
+    opacity: 1;
+  }
+}
+
+html.menu-open {
+  @include below-lg {
+    overflow: hidden;
+  }
+}

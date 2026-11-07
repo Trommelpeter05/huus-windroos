@@ -1,0 +1,73 @@
+/*
+* This file was created with significant AI assistance (e.g., Claude)
+* to handle the SCSS design tokens, the desktop scaling unit and breakpoints
+* (system taken over from the KK Knappschaft landing page, colours adapted to Ostfriesland).
+*
+* It has been reviewed, tested, and approved by a human developer
+* to ensure quality and correctness.
+*/
+
+// ---------------------------------------------------------------------------
+// Colours
+// ---------------------------------------------------------------------------
+$brick: #9b2c1f; // Klinkerrot (Ostfriesische Backsteinhäuser, Farbe des alten Logos)
+$brick-dark: #82241a;
+$ink: #33393d; // Fließtext
+$ink-dark: #1f2b32; // dunkle Flächen (Footer, Ostfriesland)
+$sea: #2c7a86; // Wattenmeer – Akzentlinie, Fokus
+$sand: #e9dfcf;
+$cream: #fcf2de; // Creme aus dem alten Auftritt
+$white: #fff;
+$field-border: #e6ddd0;
+
+$bg-sand-40: #f6f1ea;
+$bg-sand-60: #f0e8dc;
+
+$font: 'Gantari Variable', 'Helvetica Neue', Arial, sans-serif;
+$font-script: 'Great Vibes', 'Brush Script MT', cursive;
+
+// ---------------------------------------------------------------------------
+// Breakpoints (mobile first: plain values = mobile, @include md / lg = larger)
+// ---------------------------------------------------------------------------
+$bp-md: 768px;
+$bp-lg: 1200px;
+
+@mixin md {
+  @media (min-width: $bp-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $bp-lg) {
+    @content;
+  }
+}
+
+@mixin below-lg {
+  @media (max-width: ($bp-lg - 1px)) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Desktop unit: u(100) = 100 px of a 1920 px layout, scaled to the current width (capped at 1920).
+// Only used inside @include lg – mobile uses plain px. --u is set in main.scss.
+// ---------------------------------------------------------------------------
+@function u($v) {
+  @return calc(#{$v} * var(--u));
+}
+
+// Rectangular tab that continues a neighbouring colour across a section edge (overlaps by 1 px against hairlines)
+$seam: 1px;
+
+@mixin edge-tab($edge, $height) {
+  #{$edge}: -$seam;
+  height: calc(#{u($height)} + #{$seam});
+}

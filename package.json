@@ -1,0 +1,28 @@
+{
+  "name": "huus-windroos",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "generate:php": "node php-version/build.mjs",
+    "preview": "nuxt preview",
+    "bilder": "node scripts/bilder-laden.mjs",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@fontsource-variable/gantari": "^5.3.0",
+    "@fontsource/great-vibes": "^5.3.0",
+    "gsap": "^3.15.0",
+    "nodemailer": "^10.3.1",
+    "nuxt": "^4.6.4",
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17",
+    "sass-embedded": "^1.93.0",
+    "typescript": "^6.0.3"
+  }
+}

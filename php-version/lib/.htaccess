@@ -1,0 +1,2 @@
+# Never deliver this folder via the web server (only relevant if it lies inside the web root)
+Require all denied
