@@ -59,8 +59,9 @@ export type Unit = {
   text: string[]
   equipment: { title: string; items: string[] }[]
   prices: { season: string; price: number; minNights: number }[]
-  /** plan: floor plan – shown uncropped (object-fit: contain) */
-  gallery: { src: string; alt: string; plan?: boolean }[]
+  gallery: { src: string; alt: string }[]
+  /** Floor plan – shown uncropped in the picture beside the price card */
+  plan: { src: string; alt: string }
   shortStaySurcharge: number
   /** Travanto listing – calendar and reviews are read from there (server/utils/travanto.ts) */
   travanto: { id: number; url: string }
@@ -112,7 +113,6 @@ export const units: Unit[] = [
     prices: seasons.map((season) => ({ season, price: 63, minNights: 3 })),
     shortStaySurcharge: 20,
     gallery: [
-      { src: '/images/ferienwohnung-grundriss.jpg', alt: 'Grundriss', plan: true }, // Fix: floor plan as first picture
       { src: '/images/fewo-eingang.jpg', alt: 'Eingangsbereich' },
       { src: '/images/fewo-schlafzimmer.jpg', alt: 'Schlafzimmer' },
       { src: '/images/fewo-wohnbereich.jpg', alt: 'Wohnbereich' },
@@ -121,6 +121,7 @@ export const units: Unit[] = [
       { src: '/images/fewo-bad-eingang.jpg', alt: 'Badezimmereingang' },
       { src: '/images/fewo-bad.jpg', alt: 'Badezimmer' },
     ],
+    plan: { src: '/images/ferienwohnung-grundriss.jpg', alt: 'Grundriss der Ferienwohnung: zwei Schlafzimmer, Wohnküche, Bad und Balkon' },
     travanto: { id: 36065, url: 'https://www.travanto.de/ferienwohnungen/ditzum/36065/huus-windroos.php' },
     rating: { value: 4.7, count: 18 },
   },
@@ -157,7 +158,6 @@ export const units: Unit[] = [
     prices: seasons.map((season) => ({ season, price: 53, minNights: 3 })),
     shortStaySurcharge: 17,
     gallery: [
-      { src: '/images/apartment-grundriss.jpg', alt: 'Grundriss', plan: true }, // Fix: floor plan as first picture
       { src: '/images/apartment-wohnbereich-1.jpg', alt: 'Wohnbereich' },
       { src: '/images/apartment-wohnbereich-2.jpg', alt: 'Wohnbereich' },
       { src: '/images/apartment-kueche-1.jpg', alt: 'Küchenbereich' },
@@ -166,6 +166,7 @@ export const units: Unit[] = [
       { src: '/images/apartment-kommode.jpg', alt: 'Badezimmerkommode' },
       { src: '/images/apartment-kueche-2.jpg', alt: 'Küche und Esszimmer' },
     ],
+    plan: { src: '/images/apartment-grundriss.jpg', alt: 'Grundriss des Apartments: Studio mit Schlaf- und Wohnbereich, Küchenzeile, Bad und Balkon' },
     travanto: { id: 1013504, url: 'https://www.travanto.de/moeblierter-wohnraum/ditzum/1013504/huus-windroos-wohnung-2.php' },
     rating: { value: 4.7, count: 3 },
   },

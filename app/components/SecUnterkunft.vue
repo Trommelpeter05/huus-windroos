@@ -17,11 +17,6 @@ const belegungUnit = useState<string>('belegungUnit', () => units[0]!.id)
 // Fix: one price for the whole year → price card; different season prices → table
 const seasonal = computed(() => new Set(props.unit.prices.map((p) => p.price)).size > 1)
 const strip = ref<HTMLElement | null>(null)
-// Fix: photo beside the price card – floor plans don't count (they are first in the gallery now)
-const asideImg = computed(() => {
-  const photos = props.unit.gallery.filter((g) => !g.plan)
-  return photos[2] ?? photos[0] ?? props.unit.gallery[0]!
-})
 const lightbox = ref<{ open: (i: number) => void } | null>(null)
 
 function scrollStrip(dir: 1 | -1) {
@@ -66,8 +61,9 @@ function request() {
         </div>
 
         <div class="unit-sec__aside">
-          <div class="unit-sec__img parallax img-ph" data-reveal>
-            <img data-parallax :src="asideImg.src" :alt="`${asideImg.alt} – ${unit.label} im Huus Windroos, Pogum`" width="500" height="375" loading="lazy" decoding="async" />
+          <!-- Fix: floor plan instead of a photo – uncropped, without parallax -->
+          <div class="unit-sec__img unit-sec__img--plan" data-reveal>
+            <img :src="unit.plan.src" :alt="unit.plan.alt" width="1000" height="720" loading="lazy" decoding="async" />
           </div>
 
           <!--
@@ -122,7 +118,7 @@ function request() {
         </div>
         <ul ref="strip" class="gallery__strip">
           <li v-for="(img, i) in unit.gallery" :key="i">
-            <button type="button" class="gallery__item img-ph" :class="{ 'gallery__item--plan': img.plan }" :aria-label="`Foto vergrößern: ${img.alt}`" @click="lightbox?.open(i)">
+            <button type="button" class="gallery__item img-ph" :aria-label="`Foto vergrößern: ${img.alt}`" @click="lightbox?.open(i)">
               <img :src="img.src" :alt="`${img.alt} – ${unit.label} im Huus Windroos, Pogum`" width="500" height="375" loading="lazy" decoding="async" />
               <span class="gallery__caption">{{ img.alt }}</span>
             </button>
@@ -288,6 +284,27 @@ function request() {
 
   @include lg {
     border-radius: u(10);
+  }
+
+  // Fix: floor plan in full size on its paper colour; bottom padding = overlap of the price card
+  &--plan {
+    overflow: hidden;
+    background: #fbf7f4;
+
+    img {
+      width: 100%;
+      height: 100%;
+      padding: 12px 12px 52px;
+      object-fit: contain;
+
+      @include md {
+        padding: 16px 16px 76px;
+      }
+
+      @include lg {
+        padding: u(20) u(20) u(110);
+      }
+    }
   }
 }
 
@@ -564,16 +581,6 @@ function request() {
 
   &:hover img {
     transform: scale(1.05);
-  }
-
-  // Fix: floor plan uncropped on its paper colour
-  &--plan {
-    background: #faf8f5;
-
-    img {
-      padding: 3% 6% 13%;
-      object-fit: contain;
-    }
   }
 }
 
