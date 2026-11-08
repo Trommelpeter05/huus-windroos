@@ -105,8 +105,7 @@ function request() {
             <dl class="price__fees t-small">
               <div><dt>Endreinigung</dt><dd>{{ pricing.cleaning }} €</dd></div>
               <div><dt>Mindestaufenthalt</dt><dd>{{ unit.prices[0]?.minNights }} Nächte</dd></div>
-              <!-- Fix: short stay billed as one extra night instead of a surcharge per night -->
-              <div><dt>Aufenthalt von {{ pricing.shortStayNights }} Nächten</dt><dd>Preis für {{ pricing.shortStayBilledNights }} Nächte</dd></div>
+              <div><dt>Kurzurlaub bis {{ pricing.shortStayMaxNights }} Nächte</dt><dd>+{{ unit.shortStaySurcharge }} € / Nacht</dd></div>
             </dl>
             <UiButton label="Verfügbarkeit & Preis prüfen" href="#belegung" variant="light" class="price__btn" @click="request" />
           </div>
