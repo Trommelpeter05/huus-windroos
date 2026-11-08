@@ -59,8 +59,8 @@ export type Unit = {
   text: string[]
   equipment: { title: string; items: string[] }[]
   prices: { season: string; price: number; minNights: number }[]
-  shortStaySurcharge: number
-  gallery: { src: string; alt: string }[]
+  /** plan: floor plan – shown uncropped (object-fit: contain) */
+  gallery: { src: string; alt: string; plan?: boolean }[]
   /** Travanto listing – calendar and reviews are read from there (server/utils/travanto.ts) */
   travanto: { id: number; url: string }
   /** Shown until the live values from Travanto are loaded (and if Travanto is unreachable) */
@@ -70,8 +70,9 @@ export type Unit = {
 // Prices and fees shown in the price card and in „Preise & Belegung“
 export const pricing = {
   cleaning: 40,
-  /** Surcharge per night applies to stays with up to this many nights (see units[].shortStaySurcharge) */
-  shortStayMaxNights: 3,
+  // Fix: short stay – a stay of 3 nights (the minimum) is billed as 4 nights
+  shortStayNights: 3,
+  shortStayBilledNights: 4,
   /** Deposit only over New Year's Eve */
   newYearDeposit: 150,
 }
@@ -109,8 +110,8 @@ export const units: Unit[] = [
       },
     ],
     prices: seasons.map((season) => ({ season, price: 63, minNights: 3 })),
-    shortStaySurcharge: 20,
     gallery: [
+      { src: '/images/ferienwohnung-grundriss.jpg', alt: 'Grundriss', plan: true }, // Fix: floor plan as first picture
       { src: '/images/fewo-eingang.jpg', alt: 'Eingangsbereich' },
       { src: '/images/fewo-schlafzimmer.jpg', alt: 'Schlafzimmer' },
       { src: '/images/fewo-wohnbereich.jpg', alt: 'Wohnbereich' },
@@ -153,8 +154,8 @@ export const units: Unit[] = [
       },
     ],
     prices: seasons.map((season) => ({ season, price: 53, minNights: 3 })),
-    shortStaySurcharge: 17,
     gallery: [
+      { src: '/images/apartment-grundriss.jpg', alt: 'Grundriss', plan: true }, // Fix: floor plan as first picture
       { src: '/images/apartment-wohnbereich-1.jpg', alt: 'Wohnbereich' },
       { src: '/images/apartment-wohnbereich-2.jpg', alt: 'Wohnbereich' },
       { src: '/images/apartment-kueche-1.jpg', alt: 'Küchenbereich' },
@@ -195,8 +196,8 @@ export const goodToKnow = {
     { title: 'An- und Abreise', text: 'Die Unterkunft steht am Anreisetag ab 15:00 Uhr bzw. nach Absprache zur Verfügung. Am Abreisetag bitten wir Sie, sie bis 10:00 Uhr zu räumen.' },
     { title: 'Endreinigung & Kaution', text: 'Die Endreinigung beträgt 40 €. Über Silvester wird eine Kaution von 150 € erhoben.' },
     {
-      title: 'Kurzurlaub',
-      text: 'Für Kurzurlaube mit bis zu 3 Nächten Aufenthalt wird pro Nacht ein Zuschlag erhoben: 20 € in der Ferienwohnung, 17 € im Apartment.',
+      title: 'Mindestaufenthalt & Kurzaufenthalt',
+      text: 'Der Mindestaufenthalt beträgt 3 Nächte. Bei einem Aufenthalt von genau 3 Nächten berechnen wir 4 Übernachtungen – ab 4 Nächten zahlen Sie nur die Nächte, die Sie tatsächlich bleiben.',
     },
     { title: 'Parken & Umgebung', text: 'Ein PKW-Stellplatz befindet sich direkt am Haus. Angelmöglichkeiten gibt es ganz in der Nähe.' },
     { title: 'Haustiere & Rauchen', text: 'Haustiere sind leider nicht erlaubt. In beiden Unterkünften gilt ein allgemeines Rauchverbot.' },

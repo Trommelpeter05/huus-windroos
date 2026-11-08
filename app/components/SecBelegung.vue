@@ -75,12 +75,12 @@ function request() {
             <li>inkl. Bettwäsche, Handtücher & WLAN</li>
             <li>Endreinigung {{ pricing.cleaning }} €</li>
             <li>Mindestaufenthalt {{ unit.prices[0]?.minNights }} Nächte</li>
-            <li>Kurzurlaub bis {{ pricing.shortStayMaxNights }} Nächte: +{{ unit.shortStaySurcharge }} € pro Nacht</li>
+            <li>Bei {{ pricing.shortStayNights }} Nächten berechnen wir {{ pricing.shortStayBilledNights }}</li>
           </ul>
           <div v-if="nights" class="bel__choice">
             <p class="bel__choice-label">Ihr Zeitraum</p>
             <p class="bel__dates">{{ fmt(arrival) }} – {{ fmt(departure) }}</p>
-            <p class="bel__nights">{{ nights }} {{ nights === 1 ? 'Nacht' : 'Nächte' }}</p>
+            <p class="bel__nights">{{ nights }} {{ nights === 1 ? 'Nacht' : 'Nächte' }}<template v-if="nights === pricing.shortStayNights"> · berechnet werden {{ pricing.shortStayBilledNights }}</template></p>
             <UiButton label="Diesen Zeitraum anfragen" href="#kontakt" variant="light" class="bel__btn" @click="request" />
           </div>
           <p v-else class="bel__empty t-small">Wählen Sie im Kalender Anreise und Abreise – dann können Sie den Zeitraum direkt anfragen.</p>
