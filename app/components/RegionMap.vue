@@ -92,7 +92,6 @@ const water =
         </g>
       </g>
     </svg>
-    <p class="rmap__note">Schematische Karte, nicht maßstabsgetreu</p>
   </div>
 </template>
 
@@ -238,14 +237,6 @@ const water =
   .is-active & {
     transform: scale(1.3);
   }
-}
-
-.rmap__note {
-  position: absolute;
-  left: 12px;
-  bottom: 8px;
-  font-size: 11px;
-  color: rgba($ink, 0.55);
 }
 
 @include reduced-motion {
