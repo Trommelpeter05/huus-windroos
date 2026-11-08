@@ -22,8 +22,19 @@ const today = ref('')
 
 onMounted(() => (today.value = todayIso()))
 
+// Fix: start month as shared state – the prerendered HTML and the first client render use the month of the build
+// (no hydration mismatch), after mounting it switches to the visitor's current month
+const startMonth = useState('cal-start-month', () => {
+  const d = new Date()
+  return [d.getFullYear(), d.getMonth()] as [number, number]
+})
+onMounted(() => {
+  const d = new Date()
+  if (startMonth.value[0] !== d.getFullYear() || startMonth.value[1] !== d.getMonth()) startMonth.value = [d.getFullYear(), d.getMonth()]
+})
+
 const months = computed(() => {
-  const base = new Date()
+  const base = new Date(startMonth.value[0], startMonth.value[1], 1)
   return Array.from({ length: MONTHS }, (_, i) => {
     const y = base.getFullYear() + Math.floor((base.getMonth() + i) / 12)
     const m = (base.getMonth() + i) % 12

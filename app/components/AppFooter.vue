@@ -9,7 +9,11 @@
 import { contact, cta } from '~/data/content'
 
 withDefaults(defineProps<{ showCta?: boolean }>(), { showCta: true })
-const year = new Date().getFullYear()
+// Fix: year of the build in the HTML, current year after mounting (no hydration mismatch at New Year)
+const year = useState('footer-year', () => new Date().getFullYear())
+onMounted(() => {
+  year.value = new Date().getFullYear()
+})
 </script>
 
 <template>
